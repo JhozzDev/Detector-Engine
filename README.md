@@ -36,4 +36,6 @@ Pandas: Para el manejo de dataframes y lectura de datos.
 StreamLit: Para deploy del dashboard en el localhost y visualizacion de estadisticas en tiempo real.
 
 FastAPI: Comunicacion dividida del sistema para fortalecer su flexibilidad a la hora de expandirlo.
+
+PyTest: Para el testeo de la aplicacion antes de ejecutarla.
  
