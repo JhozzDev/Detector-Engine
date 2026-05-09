@@ -1,6 +1,9 @@
+
 # Motor-de-deteccion-de-fallas
 
 Motor de reglas configurable para el analisis de comportamiento inusual en sistemas que procesen datos constantes.
+
+<img width="1600" height="900" alt="bandicam 2026-05-09 12-49-48-813" src="https://github.com/user-attachments/assets/424bb8e6-216c-4ea1-b69e-47109768c0d7" />
 
 ## Incluye
 
@@ -26,6 +29,7 @@ Motor de reglas configurable para el analisis de comportamiento inusual en siste
 3. Plantas de generacion Electrica.
 4. Analisis preventivo.
 5. Monitoreo en general.
+
 
 ## Tecnologias utilizadas
 
