@@ -25,4 +25,4 @@ class Rule:
         """
         Evalua las condiciones dadas por la ventana deslizante
         """
-        return self.condition(data_window) #<---- Df de cada funcion del dashboard
+        return self.condition(data_window) 
