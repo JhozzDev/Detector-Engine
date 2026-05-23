@@ -1,39 +1,33 @@
-import pandas as pd # Manejo de datos
-import numpy as np # Soporte numerico
+import pandas as pd 
+import numpy as np
 
-from sklearn.ensemble import IsolationForest # Deteccion de anomalias
-from sklearn.preprocessing import StandardScaler # Normalizar sensores
+from sklearn.ensemble import IsolationForest 
+from sklearn.preprocessing import StandardScaler 
 
-import joblib # Guardar modelo entrenado
+import joblib 
 
 df = pd.read_csv("data/temperaturas.csv")
-
 features = ["temperaturas"]
-X = df[features] # Datos elegidos
-
+X = df[features] 
 X = X.dropna()
-X = X[X["temperaturas"] > 0] # Limpiar datos
-
+X = X[X["temperaturas"] > 0]
 scaler = StandardScaler()
-X_scaled = scaler.fit_transform(X) # Normalizar Datos
+X_scaled = scaler.fit_transform(X) 
 
-# Modelo
+
 model = IsolationForest(
 
-    n_estimators=1000, # Numero de arboles
-    contamination=0.05, # Anomalias esperadas
-    random_state=42, # resultados 
+    n_estimators=1000,
+    contamination=0.05, 
+    random_state=42,
     bootstrap=True
 
 
 ) 
 
-# Entrenar modelo
 model.fit(X_scaled)
+df["ml_result"] = model.predict(X_scaled) 
 
-df["ml_result"] = model.predict(X_scaled) # Modelo detecta fallas
-
-# Mapear DF para asignar referencia
 df["ml_result"] = df["ml_result"].map({
     1: "Normal",
     -1: "Anomalia Detectada por ML"
@@ -41,7 +35,6 @@ df["ml_result"] = df["ml_result"].map({
 
 print(df)
 
-# Guardar Modelo
 joblib.dump(model, "models/model_fallas.pkl")
 joblib.dump(scaler, "models/scaler.pkl")
 
