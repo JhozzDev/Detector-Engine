@@ -9,16 +9,11 @@ import joblib
 app = FastAPI()
 
 df = pd.read_csv("data/temperaturas.csv")
-
-# Cargar modelo
 model = joblib.load("models/model_fallas.pkl")
 scaler = joblib.load("models/scaler.pkl")
 
-# Transformar datos
 X = df[["temperaturas"]]
 X_scaled = scaler.transform(X)
-
-# Predecir Datos
 df["ml_result"] = model.predict(X_scaled)
 df["estado_ml"] = df["ml_result"].map({
     1: "Normal",
@@ -43,27 +38,23 @@ rules = [
     Rule(name="Over pressure", sensors=["pressure"], condition=over_pressure, duration=1, severity="Critic"),
     Rule(name="Low humidity", sensors=["humidity"], condition=low_humidity, duration=1, severity="Critic")]
 
-# Motor
 engine = RuleEngine(rules)
 
 @app.get("/home")
 def home():
     return {"Greeting": "Hi"}
 
-# Definir ruta
+
 @app.post("/process")
 def process_data(data:dict):
     
     df = pd.DataFrame([data])
-
-    # Escalar
     X = scaler.transform([[data["temperature"]]])
     pred = model.predict(X)[0]
     df["ml_result"] = pred
 
     events = engine.process(df)
 
-    # Returnar JSON
     return {
         "prediction": int(pred),
         "events": [
