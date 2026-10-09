@@ -39,7 +39,7 @@ joblib.dump(model, "models/model_fallas.pkl")
 joblib.dump(scaler, "models/scaler.pkl")
 
 def decision(d, ml):
-    if d > 90 and d<70:
+    if d > 90 or d < 70:
         return "Falla"
     elif ml == -1:
         return "Advertencia ML"
